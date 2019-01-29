@@ -20,10 +20,14 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var txtTextBox: UITextField!
     @IBOutlet weak var chtChart: LineChartView!
-
+    
+    
+    @IBOutlet weak var averageTextBox: UITextField!
+    @IBOutlet weak var averageOfSixTextBox: UITextField!
+    
     var numbers : [Double] = [] //This is where we are going to store all the numbers. This can be a set of numbers that come from a Realm database, Core data, External API's or where ever else
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,6 +47,7 @@ class ViewController: UIViewController {
     //numbers배열에 사용자가 입력한 숫자가 input으로 들어감.
         numbers.append(input!) //here we add the data to the array.
         updateGraph()
+        updateScore()
     }
 
     func updateGraph(){
@@ -78,7 +83,37 @@ class ViewController: UIViewController {
 
     }
 
-
+    func updateScore(){
+        print("이번엔")
+        let size = numbers.count
+        var averageOfRecentSixScores : Double = 0.0
+        var average : Double = 0.0
+        
+        //전체 평균
+        for n in 0..<size{
+            average += numbers[n]
+        }
+        average /= Double(size)
+        
+        //최근 6개 평균
+        if size < 6 { //6개보다 작으면
+            for n in 0..<size{
+                averageOfRecentSixScores += numbers[n]
+            }
+            averageOfRecentSixScores /= Double(size)
+        }
+        else{ //6개 이상이면 최근 6개의 평균
+            for n in (size-6)..<size{
+                print(numbers[n])
+                averageOfRecentSixScores += numbers[n]
+            }
+            averageOfRecentSixScores /= 6.0
+        }
+       
+        averageTextBox.text = String(average)
+        averageOfSixTextBox.text = String(averageOfRecentSixScores)
+        
+    }
 
 }
 
