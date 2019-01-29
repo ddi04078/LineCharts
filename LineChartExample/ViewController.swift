@@ -82,7 +82,7 @@ class ViewController: UIViewController {
         chtChart.chartDescription?.text = "My awesome chart" // Here we set the description for the graph
 
     }
-
+ 
     func updateScore(){
         print("이번엔")
         let size = numbers.count
