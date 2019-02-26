@@ -21,9 +21,46 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtTextBox: UITextField!
     @IBOutlet weak var chtChart: LineChartView!
     
+    //side menu가 보일 때, 메인화면의 백그라운드는 회색으로 만들기 위해
+    @IBOutlet weak var viewBackground: UIView!
+    
+    
+    @IBOutlet weak var leadingC: NSLayoutConstraint!
+    @IBOutlet weak var trailingC: NSLayoutConstraint!
     
     @IBOutlet weak var averageTextBox: UITextField!
     @IBOutlet weak var averageOfSixTextBox: UITextField!
+    
+    var hamburgerMenuIsVisible = false
+    @IBAction func hamburgerBtnTapped(_ sender: Any) {
+        //햄버거 메뉴가 안보임->보임, Cht Chart를 back to where it used to be
+        if !hamburgerMenuIsVisible {
+            leadingC.constant = 0 //150
+            //trailingC.constant = 0 //-150
+            //trailingC가 음수인 이유 : Outward로 150만큼 움직이기 때문에
+            
+            //1
+            hamburgerMenuIsVisible = true
+        } else {
+        //햄버거 메뉴가 보임->안보임, Cht Chart를 원래 위치로
+            leadingC.constant = -500 //0
+            trailingC.constant = 500 //0
+            
+            //2
+            hamburgerMenuIsVisible = false
+            //side menu가 보일때, 메인화면은 어둡게 처리
+            viewBackground.backgroundColor = UIColor.darkGray;
+        }
+        
+//        UIView.animate(sithDuration: 0.2, delay:0.0, options: .curveEaseIn, animations): {
+//            self.view.layoutIfNeeded()
+//        };) { (animationComplete) in
+//            print("The animation is complete!")
+//        }
+    }
+    
+    
+    
     
     var numbers : [Double] = [] //This is where we are going to store all the numbers. This can be a set of numbers that come from a Realm database, Core data, External API's or where ever else
     
