@@ -84,7 +84,6 @@ class ViewController: UIViewController {
     }
  
     func updateScore(){
-        print("이번엔")
         let size = numbers.count
         var averageOfRecentSixScores : Double = 0.0
         var average : Double = 0.0
